@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.example.UI.ProgressStripView
+        android:id="@+id/progress_strip"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:padding="5dp"
+        app:text="@string/download"
+        app:textSize="36"
+        app:textColor="@color/black"
+        app:progressForeground="@color/blue"
+        app:min="0"
+        app:max="100" />
+
+    <Button
+        android:id="@+id/start_btn"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start" />
+
+    <Button
+        android:id="@+id/reset_btn"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="@string/reset" />
+
+</LinearLayout>
