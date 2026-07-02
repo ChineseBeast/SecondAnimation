@@ -22,7 +22,7 @@ class ProgressStripView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), IProgressStrip {
 
     companion object {
         // 边框宽度
@@ -44,13 +44,13 @@ class ProgressStripView @JvmOverloads constructor(
         private val ANIM_INTERP = AccelerateDecelerateInterpolator()
     }
 
-    var min: Int = DEFAULT_MIN
+    override var min: Int = DEFAULT_MIN
         set(value) {
             field = value
             invalidate()
         }
 
-    var max: Int = DEFAULT_MAX
+    override var max: Int = DEFAULT_MAX
         set(value) {
             field = value
             invalidate()
@@ -62,7 +62,7 @@ class ProgressStripView @JvmOverloads constructor(
      * 公开进度值。赋值时会启动 ValueAnimator 从当前值平滑过渡到目标值。
      * 注意：内部动画回调直接写 _value，避免死循环。
      */
-    var value: Int
+    override var value: Int
         get() = _value
         set(target) {
             animator.cancel()
@@ -70,7 +70,7 @@ class ProgressStripView @JvmOverloads constructor(
             animator.start()
         }
 
-    var progressBackground: Int = DEFAULT_BG
+    override var progressBackground: Int = DEFAULT_BG
         set(value) {
             field = value
             invalidate()
@@ -83,7 +83,7 @@ class ProgressStripView @JvmOverloads constructor(
             invalidate()
         }
 
-    var text: String = ""
+    override var text: String = ""
         set(value) {
             field = value
             invalidate()
