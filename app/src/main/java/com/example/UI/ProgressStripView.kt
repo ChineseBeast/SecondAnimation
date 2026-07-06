@@ -29,7 +29,7 @@ class ProgressStripView @JvmOverloads constructor(
         private const val BORDER_WIDTH = 5f
         // 默认颜色
         private const val DEFAULT_BG = Color.GRAY
-        private const val DEFAULT_FG = Color.RED
+        private const val DEFAULT_FG = Color.BLUE
         // 进度范围
         private const val DEFAULT_MAX = 100
         private const val DEFAULT_MIN = 0
@@ -128,7 +128,6 @@ class ProgressStripView @JvmOverloads constructor(
         duration = ANIM_DURATION
         interpolator = ANIM_INTERP
         addUpdateListener { animation ->
-            // 直接更新幕后字段，不走 setter，防止递归
             _value = animation.animatedValue as Int
             invalidate()
         }
