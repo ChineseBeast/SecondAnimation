@@ -9,6 +9,7 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.content.withStyledAttributes
@@ -42,6 +43,8 @@ class ProgressStripView @JvmOverloads constructor(
         private const val ANIM_DURATION = 1000L
 
         private val ANIM_INTERP = AccelerateDecelerateInterpolator()
+
+        private const val TAG = "ProgressStrip"
     }
 
     override var min: Int = DEFAULT_MIN
@@ -65,6 +68,7 @@ class ProgressStripView @JvmOverloads constructor(
     override var value: Int
         get() = _value
         set(target) {
+            Log.d(TAG, "设值: $_value → $target")
             animator.cancel()
             animator.setIntValues(_value, target)
             animator.start()
@@ -128,12 +132,15 @@ class ProgressStripView @JvmOverloads constructor(
         duration = ANIM_DURATION
         interpolator = ANIM_INTERP
         addUpdateListener { animation ->
-            _value = animation.animatedValue as Int
+            val v = animation.animatedValue as Int
+            Log.v(TAG, "动画帧: $v")
+            _value = v
             invalidate()
         }
     }
 
     init {
+        Log.d(TAG, "初始化")
         // 从 XML 属性读取配置
         context.withStyledAttributes(attrs, R.styleable.ProgressStripView, defStyleAttr, 0) {
             _value = getInt(R.styleable.ProgressStripView_value, DEFAULT_MIN)
@@ -153,6 +160,7 @@ class ProgressStripView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        Log.v(TAG, "重绘 value=$value")
         val bounds = contentBounds() ?: return
         drawClippedProgress(canvas, bounds)
         drawBorder(canvas, bounds)
